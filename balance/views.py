@@ -2,4 +2,4 @@ from . import app
 
 @app.route("/")
 def inicio():
-    return "Vamos a por la API"
+    return f"Confugracion actual {app.config['SECRET_KEY']}"
