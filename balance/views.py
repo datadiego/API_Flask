@@ -17,8 +17,14 @@ importante versionar los endpoints
 RUTA = app.config.get("RUTA")
 @app.route("/api/v1/movimientos")
 def listar_movimientos():
-    db = DBManager(RUTA)
-    sql = "SELECT * from movimientos ORDER BY fecha, id"
-    movimientos = db.consultaSQL(sql)
+    try:
+        db = DBManager(RUTA)
+        sql = "SELECT * from movimientos ORDER BY fecha, id"
+        movimientos = db.consultaSQL(sql)
+        resultado = {"status":"success",
+        "results":movimientos}
+    except Exception as error:
+        resultado = {"status":"error",
+        "results": str(error)}
 
-    return jsonify(movimientos)
+    return jsonify(resultado)
